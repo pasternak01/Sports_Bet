@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PyCharm Шпаргалка</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-top: 25px;
+            font-size: 1.3em;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        h2:hover {
+            background: #f8f9fa;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            display: none;
+        }
+
+        th {
+            background: #f8f9fa;
+            text-align: left;
+            padding: 12px;
+            font-weight: 500;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        kbd {
+            background: #e9ecef;
+            color: #495057;
+            padding: 3px 6px;
+            border-radius: 3px;
+            border: 1px solid #dee2e6;
+            font-family: monospace;
+        }
+
+        .active {
+            display: table;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                padding: 10px;
+            }
+            tr:nth-child(even) {
+                background: #f8f8f8 !important;
+            }
+            table {
+                display: table !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Шпаргалка PyCharm</h1>
+
+        <h2 onclick="toggleSection('nav')">Навигация ▼</h2>
+        <table id="nav">
+            <tr><th>Горячие клавиши</th><th>Действие</th></tr>
+            <tr><td><kbd>Ctrl+B</kbd></td><td>Перейти к определению</td></tr>
+            <tr><td><kbd>Ctrl+Alt+←/→</kbd></td><td>История навигации</td></tr>
+            <tr><td><kbd>Ctrl+E</kbd></td><td>Недавние файлы</td></tr>
+            <tr><td><kbd>Ctrl+G</kbd></td><td>Перейти к строке</td></tr>
+        </table>
+
+        <h2 onclick="toggleSection('edit')">Редактирование ▼</h2>
+        <table id="edit">
+            <tr><th>Горячие клавиши</th><th>Действие</th></tr>
+            <tr><td><kbd>Ctrl+/</kbd></td><td>Закомментировать</td></tr>
+            <tr><td><kbd>Ctrl+D</kbd></td><td>Дублировать строку</td></tr>
+            <tr><td><kbd>Ctrl+Alt+L</kbd></td><td>Форматировать код</td></tr>
+            <tr><td><kbd>Ctrl+W</kbd></td><td>Расширить выделение</td></tr>
+        </table>
+
+        <h2 onclick="toggleSection('tools')">Инструменты ▼</h2>
+        <table id="tools">
+            <tr><th>Горячие клавиши</th><th>Действие</th></tr>
+            <tr><td><kbd>Ctrl+Shift+A</kbd></td><td>Поиск действий</td></tr>
+            <tr><td><kbd>Alt+Insert</kbd></td><td>Генератор кода</td></tr>
+            <tr><td><kbd>Ctrl+Alt+S</kbd></td><td>Настройки IDE</td></tr>
+            <tr><td><kbd>Ctrl+Shift+F10</kbd></td><td>Запуск скрипта</td></tr>
+        </table>
+
+        <h2 onclick="toggleSection('refactor')">Рефакторинг ▼</h2>
+        <table id="refactor">
+            <tr><th>Горячие клавиши</th><th>Действие</th></tr>
+            <tr><td><kbd>Shift+F6</kbd></td><td>Переименовать</td></tr>
+            <tr><td><kbd>Ctrl+Alt+V</kbd></td><td>Вынести переменную</td></tr>
+            <tr><td><kbd>Ctrl+Alt+P</kbd></td><td>Вынести параметр</td></tr>
+            <tr><td><kbd>Ctrl+Alt+Shift+T</kbd></td><td>Меню рефакторинга</td></tr>
+        </table>
+
+        <h2 onclick="toggleSection('debug')">Отладка ▼</h2>
+        <table id="debug">
+            <tr><th>Горячие клавиши</th><th>Действие</th></tr>
+            <tr><td><kbd>Shift+F9</kbd></td><td>Запустить отладку</td></tr>
+            <tr><td><kbd>F8</kbd></td><td>Шаг с обходом</td></tr>
+            <tr><td><kbd>F7</kbd></td><td>Шаг с заходом</td></tr>
+            <tr><td><kbd>Ctrl+F8</kbd></td><td>Точка останова</td></tr>
+        </table>
+    </div>
+
+    <script>
+        // Открываем первую секцию по умолчанию
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleSection('nav');
+        });
+
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const arrow = event.currentTarget.querySelector('span') ||
+                          document.createElement('span');
+
+            // Переключение видимости
+            section.classList.toggle('active');
+
+            // Обновление стрелки
+            arrow.textContent = section.classList.contains('active') ? ' ▼' : ' ▶';
+            event.currentTarget.appendChild(arrow);
+
+            // Анимация плавного появления
+            if (section.classList.contains('active')) {
+                section.style.opacity = 0;
+                let opacity = 0;
+                const fadeIn = setInterval(() => {
+                    opacity += 0.1;
+                    section.style.opacity = opacity;
+                    if (opacity >= 1) clearInterval(fadeIn);
+                }, 30);
+            }
+        }
+    </script>
+</body>
+</html>
