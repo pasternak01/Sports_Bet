@@ -65,7 +65,7 @@ def get_matches_today(url: str, headers: dict) -> list:
 
     for row in today_table:
         if row.find("span", class_="today"): # Ищет матчи на сегодня
-            match_name = row.find('a', title="Click for match detail").text.replace("-", "🆚")
+            match_name = row.find('a', title="Click for match detail").text.replace("-", "-")
             match_url = f"https://www.tennisexplorer.com{row.find('a', title='Click for match detail')['href']}"
             match_time = row.find("td", class_="first time").text
 
